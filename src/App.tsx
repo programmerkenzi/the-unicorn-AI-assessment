@@ -15,6 +15,7 @@ const mockData = [
     createdAt: "2021-09-01T00:00:00.000Z",
     ai: false,
     message: "Hello, World!",
+    opacity: 1,
   },
   {
     id: "2",
@@ -22,6 +23,7 @@ const mockData = [
     ai: true,
     message:
       "Hi there! How can I assist you today? If you have any questions or need guidance with a project, feel free to let me know.",
+    opacity: 1,
   },
   {
     id: "3",
@@ -29,11 +31,13 @@ const mockData = [
     ai: false,
     message:
       "I need help with my project. I'm not sure how to proceed with integrating the front-end and back-end. The API calls seem to fail, and I’m stuck debugging it.",
+    opacity: 1,
   },
   {
     id: "4",
     createdAt: "2021-09-01T00:03:00.000Z",
     ai: true,
+    opacity: 1,
     message:
       "Sure! It sounds like a challenging task, but I'm here to help. Can you provide more details, like the error messages you're seeing or the type of API you're working with?",
   },
@@ -41,6 +45,7 @@ const mockData = [
     id: "5",
     createdAt: "2021-09-01T00:04:25.000Z",
     ai: false,
+    opacity: 1,
     message:
       "I'm building a web app using React for the front-end and Node.js with Express for the back-end. The issue is that I'm getting a CORS error when trying to fetch data from the server.",
   },
@@ -48,6 +53,8 @@ const mockData = [
     id: "6",
     createdAt: "2021-09-01T00:05:10.000Z",
     ai: true,
+    opacity: 1,
+
     message:
       "CORS errors can be tricky! It usually happens when the server and client are running on different domains. You might need to configure your server to allow requests from your front-end domain using the appropriate headers.",
   },
@@ -55,6 +62,7 @@ const mockData = [
     id: "7",
     createdAt: "2021-09-01T00:06:45.000Z",
     ai: false,
+    opacity: 1,
     message:
       "That makes sense. I also read about using a CORS middleware, but I'm not sure how to set it up correctly in Express.",
   },
@@ -62,6 +70,7 @@ const mockData = [
     id: "8",
     createdAt: "2021-09-01T00:07:30.000Z",
     ai: true,
+    opacity: 1,
     message:
       "No problem! You can use the `cors` package in Express to handle this. Just install it via npm and use it as middleware in your app. Here’s a quick example:\n\n```javascript\nconst cors = require('cors');\napp.use(cors());\n```",
   },
@@ -69,6 +78,8 @@ const mockData = [
     id: "9",
     createdAt: "2021-09-01T00:08:05.000Z",
     ai: false,
+    opacity: 1,
+
     message:
       "That’s helpful! I’ll try adding it to my server setup. Also, I want to implement JWT authentication for secure login and registration. Do you have any tips for that?",
   },
@@ -76,6 +87,7 @@ const mockData = [
     id: "10",
     createdAt: "2021-09-01T00:09:00.000Z",
     ai: true,
+    opacity: 1,
     message:
       "JWT authentication is a great choice for securing your application! Start by generating tokens during login or signup. You'll then validate these tokens on each request to protected routes. Make sure to keep your secret keys safe, and set reasonable expiration times for the tokens to enhance security.",
   },
@@ -99,6 +111,7 @@ function App() {
         createdAt: new Date().toISOString(),
         ai,
         message,
+        opacity: 1,
       },
     ]);
   };
@@ -155,7 +168,30 @@ function App() {
       chatContainerRef.current.scrollTop =
         chatContainerRef.current.scrollHeight;
     }
-  }, [chatHistory, isFetchingResponse]);
+  }, [chatHistory.length, isFetchingResponse]);
+
+  const handleScroll = () => {
+    if (!chatContainerRef.current) return;
+
+    const data = [...chatHistory];
+
+    const containerChildren = chatContainerRef.current.children;
+    Array.from(containerChildren).map((child, index) => {
+      const rect = (child as HTMLElement).getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const topPercentage = (rect.top / viewportHeight) * 100;
+
+      if (topPercentage <= 15) {
+        data[index].opacity = 0.2;
+      } else if (topPercentage <= 30) {
+        data[index].opacity = 0.5;
+      } else {
+        data[index].opacity = 1;
+      }
+    });
+
+    setChatHistory(data);
+  };
 
   return (
     <div className="bg-[url('src/assets/background.svg')] w-screen h-screen grid xl:gap-8 xl:grid-cols-[40%_1fr] xl:pl-10">
@@ -169,16 +205,18 @@ function App() {
         <div
           className="flex overflow-y-scroll flex-col gap-5 p-4 h-full xl:gap-8 xl:pr-10"
           ref={chatContainerRef}
+          onScroll={handleScroll}
         >
           {chatHistory.map((data, index) => (
             <ChatBubble
               key={`${index}-${data.id}`}
               message={data.message}
               ai={data.ai}
+              opacity={data.opacity}
             />
           ))}
           {isFetchingResponse && (
-            <ChatBubble message="" ai={true} opacity={0.5} isLoading={true} />
+            <ChatBubble message="" ai={true} isLoading={true} />
           )}
         </div>
         {/* actions */}

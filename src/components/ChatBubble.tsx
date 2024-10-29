@@ -22,7 +22,7 @@ const ChatBubble = ({
 
   return (
     <div
-      className={`relative flex xl:px-8 xl:py-4 px-4 py-2 ml-2 rounded-[32px] w-[90%] xl-min-content ${bubbleStyles}`}
+      className={`relative flex xl:px-8 xl:py-4 px-4 py-2 ml-2 rounded-[32px] w-[90%] xl-min-content   transition-all  duration-300 ${bubbleStyles}`}
       style={{ opacity }}
     >
       {isLoading ? (
