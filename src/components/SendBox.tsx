@@ -1,7 +1,14 @@
 import AaIcon from "../assets/icon/aa.svg";
 import SendIcon from "../assets/icon/send.svg";
 
-const SendBox = () => {
+interface SendBoxProps {
+  disabled: boolean;
+  message: string;
+  setMessage: (message: string) => void;
+  onSend: () => void;
+}
+
+const SendBox = ({ message, setMessage, onSend, disabled }: SendBoxProps) => {
   return (
     <div className="w-full">
       <div className="relative">
@@ -9,6 +16,9 @@ const SendBox = () => {
           <img width={20} src={AaIcon} alt="Aa Icon" />
         </div>
         <input
+          disabled={disabled}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
           type="search"
           id="default-search"
           className="block py-4 pr-12 pl-12 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
@@ -18,6 +28,7 @@ const SendBox = () => {
         <button
           type="button"
           className="flex absolute inset-y-0 items-center pr-2 cursor-pointer hover:opacity-75 end-4 focus:outline-none"
+          onClick={onSend}
         >
           <svg
             width="24"

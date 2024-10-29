@@ -83,9 +83,10 @@ const mockData = [
 function App() {
   const [isRecording, setIsRecording] = useState(false);
   const [audioURL, setAudioURL] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
 
   const handleOnResult = (text: string) => {
-    console.log("Recorded text:", text);
+    setMessage((prev) => `${prev} ${text}`);
   };
 
   const handleOnRecordEnd = () => {
@@ -95,6 +96,8 @@ function App() {
   const handleOnRecordStart = () => {
     console.log("Recording started.");
   };
+
+  const handleOnSend = () => {};
 
   return (
     <div className="bg-[url('src/assets/background.svg')] w-screen h-screen grid xl:gap-8 xl:grid-cols-[40%_1fr] xl:pl-10">
@@ -112,7 +115,12 @@ function App() {
         </div>
         {/* actions */}
         <div className="flex absolute bottom-0 left-0 flex-row gap-2 justify-between items-center px-4 py-2 w-full xl:pr-10">
-          <SendBox />
+          <SendBox
+            message={message}
+            disabled={isRecording}
+            setMessage={(message) => setMessage(message)}
+            onSend={handleOnSend}
+          />
 
           {audioURL ? (
             <>
