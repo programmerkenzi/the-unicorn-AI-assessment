@@ -5,6 +5,8 @@ import "./App.css";
 import ChatBubble from "./components/ChatBubble";
 import SendBox from "./components/SendBox";
 import RecordButton from "./components/RecordButton";
+import AudioPlayer from "./components/AudioPlayer";
+import RemoveButton from "./components/RemoveButton";
 
 const mockData = [
   {
@@ -79,12 +81,19 @@ const mockData = [
 ];
 
 function App() {
-  const handleOnRecord = (text: string) => {
+  const [isRecording, setIsRecording] = useState(false);
+  const [audioURL, setAudioURL] = useState<string>("");
+
+  const handleOnResult = (text: string) => {
     console.log("Recorded text:", text);
   };
 
   const handleOnRecordEnd = () => {
     console.log("Recording ended.");
+  };
+
+  const handleOnRecordStart = () => {
+    console.log("Recording started.");
   };
 
   return (
@@ -104,11 +113,23 @@ function App() {
         {/* actions */}
         <div className="flex absolute bottom-0 left-0 flex-row gap-2 justify-between items-center px-4 py-2 w-full xl:pr-10">
           <SendBox />
-          <RecordButton
-            onRecord={handleOnRecord}
-            onRecordEnd={handleOnRecordEnd}
-            recordMode="text-preview"
-          />
+
+          {audioURL ? (
+            <>
+              <AudioPlayer audioURL={audioURL} />
+              <RemoveButton onClick={() => setAudioURL("")} />
+            </>
+          ) : (
+            <>
+              <RecordButton
+                onResult={handleOnResult}
+                onRecordEnd={handleOnRecordEnd}
+                recordMode="text-preview"
+                onRecordStart={handleOnRecordStart}
+                onSaveAudio={(audioURL) => setAudioURL(audioURL)}
+              />
+            </>
+          )}
         </div>
       </div>
     </div>

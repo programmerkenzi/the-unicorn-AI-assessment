@@ -29,9 +29,9 @@ const SendBox = () => {
             <path
               d="M41 1.5L19 23.5M41 1.5L27 41.5L19 23.5M41 1.5L1 15.5L19 23.5"
               stroke="#1E1E1E"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
         </button>

@@ -3,18 +3,24 @@ import { useEffect, useRef, useState } from "react";
 export type RecordMode = "text-preview" | "on-click" | "auto";
 
 interface RecordButtonProps {
-  onRecord: (transcript: string) => void;
+  onRecordStart: () => void;
+  onResult: (transcript: string) => void;
+  onSaveAudio: (audioURL: string) => void;
   onRecordEnd: () => void;
   recordMode: RecordMode;
 }
 
 const RecordButton = ({
-  onRecord,
+  onRecordStart,
+  onResult,
   onRecordEnd,
+  onSaveAudio,
   recordMode,
 }: RecordButtonProps) => {
   const [isRecording, setIsRecording] = useState(false);
   const recognitionRef = useRef<SpeechRecognition>();
+  const mediaRecorderRef = useRef<MediaRecorder>();
+  const audioChunksRef = useRef<Blob[]>([]); // Store audio chunks
 
   const initializeSpeechRecognition = () => {
     const SpeechRecognition =
@@ -27,6 +33,7 @@ const RecordButton = ({
     // Set up event handlers
     speechRecognition.onstart = () => {
       setIsRecording(true);
+      onRecordStart();
       console.log("Speech recognition started");
     };
     speechRecognition.onend = () => {
@@ -42,7 +49,7 @@ const RecordButton = ({
         transcript += value[0].transcript;
       }
 
-      onRecord(transcript);
+      onResult(transcript);
     };
     speechRecognition.onerror = (event) => {
       console.error("Speech recognition error:", event.error);
@@ -51,13 +58,51 @@ const RecordButton = ({
     return speechRecognition;
   };
 
-  const handleOnRecord = async () => {
-    if (isRecording) {
-      recognitionRef.current?.stop();
-      setIsRecording(false);
-    } else {
+  const handleStartRecording = async () => {
+    try {
+      // Request microphone access
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+      // Initialize speech recognition
       recognitionRef.current = initializeSpeechRecognition();
       recognitionRef.current.start();
+
+      // Initialize media recorder
+      const mediaRecorder = new MediaRecorder(stream);
+      mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          audioChunksRef.current.push(event.data);
+        }
+      };
+
+      mediaRecorder.onstop = () => {
+        const audioBlob = new Blob(audioChunksRef.current, {
+          type: "audio/webm",
+        });
+        const audioURL = URL.createObjectURL(audioBlob);
+        onSaveAudio(audioURL);
+        audioChunksRef.current = [];
+      };
+
+      mediaRecorder.start();
+      mediaRecorderRef.current = mediaRecorder;
+      setIsRecording(true);
+    } catch (error) {
+      console.error("Error accessing microphone:", error);
+    }
+  };
+
+  const handleStopRecording = () => {
+    recognitionRef.current?.stop();
+    mediaRecorderRef.current?.stop();
+    setIsRecording(false);
+  };
+
+  const handleOnRecord = () => {
+    if (isRecording) {
+      handleStopRecording();
+    } else {
+      handleStartRecording();
     }
   };
 
@@ -65,9 +110,7 @@ const RecordButton = ({
     <button
       type="button"
       onClick={handleOnRecord}
-      className={`relative w-12 h-12 bg-[#D8BB83] hover:bg-[#E2C99A] focus:ring-4 focus:outline-none 
-        focus:ring-[#C4A373] font-medium rounded-full p-3 inline-flex items-center justify-center 
-        group transition-all duration-1000`}
+      className={`relative transition-all duration-1000 action-button group`}
     >
       {isRecording && (
         <span className="absolute inline-flex h-full w-full rounded-full bg-[#C4A373] opacity-75 animate-ping" />
@@ -79,7 +122,6 @@ const RecordButton = ({
         height="24"
         fill="none"
         viewBox="0 0 24 24"
-        className="text-black group-hover:text-gray-700"
       >
         <path
           stroke="currentColor"
