@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import UnicornGirl from "./assets/unicorn_girl.svg";
 
 import "./App.css";
@@ -86,39 +86,50 @@ function App() {
   const [audioURL, setAudioURL] = useState<string>("");
   const [chatHistory, setChatHistory] = useState(mockData);
   const [message, setMessage] = useState<string>("");
-  const [recordMode, setRecordMode] = useState<RecordMode>("on-click");
+  const [recordMode, setRecordMode] = useState<RecordMode>("text-preview");
   const [isFetchingResponse, setIsFetchingResponse] = useState(false);
 
-  const handleOnSend = (text: string) => {
-    console.log("Sending message:", message);
-    let curMessage = message;
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
-    if (recordMode != "text-preview") {
-      curMessage = text;
-    }
+  const pushMessage = (message: string, ai: boolean) => {
     setChatHistory((prev) => [
       ...prev,
       {
         id: String(chatHistory.length + 1),
         createdAt: new Date().toISOString(),
-        ai: false,
-        message: curMessage,
+        ai,
+        message,
       },
     ]);
+  };
+
+  const handleOnSend = () => {
+    pushMessage(message, false);
+
+    setMessage("");
 
     // Simulate AI response
     setIsFetchingResponse(true);
     setTimeout(() => {
       setIsFetchingResponse(false);
-      setChatHistory((prev) => [
-        ...prev,
-        {
-          id: String(chatHistory.length + 2),
-          createdAt: new Date().toISOString(),
-          ai: true,
-          message: "I'm sorry, I'm just a demo bot. I can't respond to that.",
-        },
-      ]);
+      pushMessage(
+        "I'm sorry, I'm just a demo chatbot. I don't have real-time capabilities.",
+        true
+      );
+    }, 1000);
+  };
+
+  const handleOnAutoSend = (message: string) => {
+    pushMessage(message, false);
+
+    // Simulate AI response
+    setIsFetchingResponse(true);
+    setTimeout(() => {
+      setIsFetchingResponse(false);
+      pushMessage(
+        "I'm sorry, I'm just a demo chatbot. I don't have real-time capabilities.",
+        true
+      );
     }, 1000);
   };
 
@@ -126,7 +137,8 @@ function App() {
     if (recordMode === "text-preview") {
       setMessage((prev) => `${prev} ${text}`);
     } else {
-      handleOnSend(text);
+      console.log("Recording result:", text);
+      handleOnAutoSend(text);
     }
   };
 
@@ -138,6 +150,13 @@ function App() {
     console.log("Recording started.");
   };
 
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
+    }
+  }, [chatHistory, isFetchingResponse]);
+
   return (
     <div className="bg-[url('src/assets/background.svg')] w-screen h-screen grid xl:gap-8 xl:grid-cols-[40%_1fr] xl:pl-10">
       <div className="hidden flex-col justify-end xl:flex">
@@ -147,9 +166,16 @@ function App() {
         <img src={UnicornGirl} className="h-full" />
       </div>
       <div className="relative overflow-hidden h-full pb-[70px]">
-        <div className="flex overflow-y-scroll flex-col gap-5 p-4 h-full xl:gap-8 xl:pr-10">
+        <div
+          className="flex overflow-y-scroll flex-col gap-5 p-4 h-full xl:gap-8 xl:pr-10"
+          ref={chatContainerRef}
+        >
           {chatHistory.map((data, index) => (
-            <ChatBubble key={data.id} message={data.message} ai={data.ai} />
+            <ChatBubble
+              key={`${index}-${data.id}`}
+              message={data.message}
+              ai={data.ai}
+            />
           ))}
           {isFetchingResponse && (
             <ChatBubble message="" ai={true} opacity={0.5} isLoading={true} />

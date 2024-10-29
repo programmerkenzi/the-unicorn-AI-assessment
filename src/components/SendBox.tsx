@@ -3,7 +3,7 @@ import AaIcon from "../assets/icon/aa.svg";
 interface SendBoxProps {
   message: string;
   setMessage: (message: string) => void;
-  onSend: (message: string) => void;
+  onSend: () => void;
 }
 
 const SendBox = ({ message, setMessage, onSend }: SendBoxProps) => {
