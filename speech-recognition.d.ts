@@ -13,8 +13,10 @@ declare global {
       | null;
     onspeechstart: ((this: SpeechRecognition, ev: Event) => any) | null;
     onspeechend: ((this: SpeechRecognition, ev: Event) => any) | null;
-    onaudioend: ((this: SpeechRecognition, ev: Event) => any) | null;
     onaudiostart: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onaudioend: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onsoundstart: ((this: SpeechRecognition, ev: Event) => any) | null; // New: Sound detection starts
+    onsoundend: ((this: SpeechRecognition, ev: Event) => any) | null; // New: Sound detection ends
     onerror:
       | ((this: SpeechRecognition, ev: SpeechRecognitionErrorEvent) => any)
       | null;

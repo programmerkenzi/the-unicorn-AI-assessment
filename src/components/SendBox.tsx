@@ -1,14 +1,12 @@
 import AaIcon from "../assets/icon/aa.svg";
-import SendIcon from "../assets/icon/send.svg";
 
 interface SendBoxProps {
-  disabled: boolean;
   message: string;
   setMessage: (message: string) => void;
-  onSend: () => void;
+  onSend: (message: string) => void;
 }
 
-const SendBox = ({ message, setMessage, onSend, disabled }: SendBoxProps) => {
+const SendBox = ({ message, setMessage, onSend }: SendBoxProps) => {
   return (
     <div className="w-full">
       <div className="relative">
@@ -16,7 +14,6 @@ const SendBox = ({ message, setMessage, onSend, disabled }: SendBoxProps) => {
           <img width={20} src={AaIcon} alt="Aa Icon" />
         </div>
         <input
-          disabled={disabled}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           type="search"

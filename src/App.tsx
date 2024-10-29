@@ -7,6 +7,7 @@ import SendBox from "./components/SendBox";
 import RecordButton from "./components/RecordButton";
 import AudioPlayer from "./components/AudioPlayer";
 import RemoveButton from "./components/RemoveButton";
+import { RecordMode } from "./types";
 
 const mockData = [
   {
@@ -81,12 +82,52 @@ const mockData = [
 ];
 
 function App() {
-  const [isRecording, setIsRecording] = useState(false);
+  const [isRecording] = useState(false);
   const [audioURL, setAudioURL] = useState<string>("");
+  const [chatHistory, setChatHistory] = useState(mockData);
   const [message, setMessage] = useState<string>("");
+  const [recordMode, setRecordMode] = useState<RecordMode>("on-click");
+  const [isFetchingResponse, setIsFetchingResponse] = useState(false);
+
+  const handleOnSend = (text: string) => {
+    console.log("Sending message:", message);
+    let curMessage = message;
+
+    if (recordMode != "text-preview") {
+      curMessage = text;
+    }
+    setChatHistory((prev) => [
+      ...prev,
+      {
+        id: String(chatHistory.length + 1),
+        createdAt: new Date().toISOString(),
+        ai: false,
+        message: curMessage,
+      },
+    ]);
+
+    // Simulate AI response
+    setIsFetchingResponse(true);
+    setTimeout(() => {
+      setIsFetchingResponse(false);
+      setChatHistory((prev) => [
+        ...prev,
+        {
+          id: String(chatHistory.length + 2),
+          createdAt: new Date().toISOString(),
+          ai: true,
+          message: "I'm sorry, I'm just a demo bot. I can't respond to that.",
+        },
+      ]);
+    }, 1000);
+  };
 
   const handleOnResult = (text: string) => {
-    setMessage((prev) => `${prev} ${text}`);
+    if (recordMode === "text-preview") {
+      setMessage((prev) => `${prev} ${text}`);
+    } else {
+      handleOnSend(text);
+    }
   };
 
   const handleOnRecordEnd = () => {
@@ -96,8 +137,6 @@ function App() {
   const handleOnRecordStart = () => {
     console.log("Recording started.");
   };
-
-  const handleOnSend = () => {};
 
   return (
     <div className="bg-[url('src/assets/background.svg')] w-screen h-screen grid xl:gap-8 xl:grid-cols-[40%_1fr] xl:pl-10">
@@ -109,15 +148,17 @@ function App() {
       </div>
       <div className="relative overflow-hidden h-full pb-[70px]">
         <div className="flex overflow-y-scroll flex-col gap-5 p-4 h-full xl:gap-8 xl:pr-10">
-          {mockData.map((data, index) => (
+          {chatHistory.map((data, index) => (
             <ChatBubble key={data.id} message={data.message} ai={data.ai} />
           ))}
+          {isFetchingResponse && (
+            <ChatBubble message="" ai={true} opacity={0.5} isLoading={true} />
+          )}
         </div>
         {/* actions */}
         <div className="flex absolute bottom-0 left-0 flex-row gap-2 justify-between items-center px-4 py-2 w-full xl:pr-10">
           <SendBox
             message={message}
-            disabled={isRecording}
             setMessage={(message) => setMessage(message)}
             onSend={handleOnSend}
           />
@@ -132,7 +173,7 @@ function App() {
               <RecordButton
                 onResult={handleOnResult}
                 onRecordEnd={handleOnRecordEnd}
-                recordMode="text-preview"
+                recordMode={recordMode}
                 onRecordStart={handleOnRecordStart}
                 onSaveAudio={(audioURL) => setAudioURL(audioURL)}
               />
