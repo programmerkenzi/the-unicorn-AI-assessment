@@ -79,7 +79,13 @@ const mockData = [
 ];
 
 function App() {
-  const [count, setCount] = useState(0);
+  const handleOnRecord = (text: string) => {
+    console.log("Recorded text:", text);
+  };
+
+  const handleOnRecordEnd = () => {
+    console.log("Recording ended.");
+  };
 
   return (
     <div className="bg-[url('src/assets/background.svg')] w-screen h-screen grid xl:gap-8 xl:grid-cols-[40%_1fr] xl:pl-10">
@@ -98,7 +104,11 @@ function App() {
         {/* actions */}
         <div className="flex absolute bottom-0 left-0 flex-row gap-2 justify-between items-center px-4 py-2 w-full xl:pr-10">
           <SendBox />
-          <RecordButton />
+          <RecordButton
+            onRecord={handleOnRecord}
+            onRecordEnd={handleOnRecordEnd}
+            recordMode="text-preview"
+          />
         </div>
       </div>
     </div>
