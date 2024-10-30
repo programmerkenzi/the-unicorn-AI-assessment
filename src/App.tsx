@@ -185,7 +185,7 @@ function App() {
 
       if (topPercentage <= 15) {
         data[index].opacity = 0.2;
-      } else if (topPercentage <= 30) {
+      } else if (topPercentage <= 25) {
         data[index].opacity = 0.5;
       } else {
         data[index].opacity = 1;
@@ -209,7 +209,7 @@ function App() {
           />
         </div>
       </div>
-      <div className="relative overflow-hidden h-full pb-[70px] xl:pb-[108px]">
+      <div className="relative overflow-hidden h-full pb-[70px] xl:pb-[155px]">
         <div
           className="flex overflow-y-scroll flex-col gap-5 p-4 h-full xl:gap-8 xl:pr-10"
           ref={chatContainerRef}
@@ -228,8 +228,8 @@ function App() {
           )}
         </div>
         {/* actions */}
-        <div className="flex absolute bottom-0 left-0 flex-col gap-4 px-4 py-2 w-full xl:pr-10">
-          <div className="flex flex-row gap-2 justify-between items-center">
+        <div className="flex absolute bottom-0 left-0 flex-col gap-6 p-4 w-full xl:pr-10">
+          <div className="flex flex-row gap-2 justify-between items-center xl:gap-4">
             <SendBox
               message={message}
               setMessage={(message) => setMessage(message)}
@@ -253,7 +253,7 @@ function App() {
               </>
             )}
           </div>
-          <div className="hidden self-end w-1/2 max-w-96 xl:flex">
+          <div className="hidden self-end w-1/3 min-w-[300px] max-w-96 xl:flex">
             <RecordModeTabs selected={recordMode} onSelect={setRecordMode} />
           </div>
         </div>
