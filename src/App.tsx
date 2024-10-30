@@ -97,7 +97,7 @@ const mockData = [
 ];
 
 function App() {
-  const [isRecording] = useState(false);
+  // const [isRecording] = useState(false);
   const [audioURL, setAudioURL] = useState<string>("");
   const [chatHistory, setChatHistory] = useState(mockData);
   const [message, setMessage] = useState<string>("");

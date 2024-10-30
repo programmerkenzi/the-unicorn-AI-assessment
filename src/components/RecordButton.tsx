@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 export type RecordMode = "text-preview" | "on-click" | "auto";
 
@@ -15,7 +15,6 @@ const RecordButton = ({
   onResult,
   onRecordEnd,
   onSaveAudio,
-  recordMode,
 }: RecordButtonProps) => {
   const [isRecording, setIsRecording] = useState(false);
   const recognitionRef = useRef<SpeechRecognition>();
