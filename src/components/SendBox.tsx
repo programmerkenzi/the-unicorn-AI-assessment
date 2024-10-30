@@ -7,6 +7,12 @@ interface SendBoxProps {
 }
 
 const SendBox = ({ message, setMessage, onSend }: SendBoxProps) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && message.trim()) {
+      onSend();
+    }
+  };
+
   return (
     <div className="w-full">
       <div className="relative">
@@ -21,6 +27,7 @@ const SendBox = ({ message, setMessage, onSend }: SendBoxProps) => {
           className="block py-4 pr-12 pl-12 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 dark:text-gray-100 dark:bg-gray-800 dark:border-gray-600 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-400 dark:focus:border-blue-400"
           placeholder="Type a message..."
           required
+          onKeyDown={handleKeyDown}
         />
         <button
           type="button"
