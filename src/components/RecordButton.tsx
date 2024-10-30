@@ -76,7 +76,7 @@ const RecordButton = ({
 
       mediaRecorder.onstop = () => {
         const audioBlob = new Blob(audioChunksRef.current, {
-          type: "audio/webm",
+          type: "audio/mpeg",
         });
         const audioURL = URL.createObjectURL(audioBlob);
         onSaveAudio(audioURL);
