@@ -12,88 +12,92 @@ import RecordModeTabs from "./components/RecordModeTabs";
 import RecordModeDrawdown from "./components/RecordModeDrawdown";
 import UnicornGirlAnimation from "./components/UnicornGirlAnimation";
 import { motion } from "framer-motion";
+import ThemeToggleButton from "./components/ThemeToggleButton";
 
 const mockData = [
   {
     id: "1",
     createdAt: "2021-09-01T00:00:00.000Z",
-    ai: false,
-    message: "Hello, World!",
+    ai: true,
+    message: "Hi, I'm a demo chatbot! How can I help you today?",
     opacity: 1,
   },
   {
     id: "2",
     createdAt: "2021-09-01T00:01:30.000Z",
-    ai: true,
-    message:
-      "Hi there! How can I assist you today? If you have any questions or need guidance with a project, feel free to let me know.",
+    ai: false,
+    message: "I want to improve my English speaking skills. Can you help me?",
     opacity: 1,
   },
   {
     id: "3",
     createdAt: "2021-09-01T00:02:15.000Z",
-    ai: false,
+    ai: true,
     message:
-      "I need help with my project. I'm not sure how to proceed with integrating the front-end and back-end. The API calls seem to fail, and I’m stuck debugging it.",
+      "Of course! We can start with basic conversations or focus on vocabulary and pronunciation. What would you like to begin with?",
     opacity: 1,
   },
   {
     id: "4",
     createdAt: "2021-09-01T00:03:00.000Z",
-    ai: true,
+    ai: false,
     opacity: 1,
-    message:
-      "Sure! It sounds like a challenging task, but I'm here to help. Can you provide more details, like the error messages you're seeing or the type of API you're working with?",
+    message: "Let's start with vocabulary. I struggle with phrasal verbs.",
   },
   {
     id: "5",
     createdAt: "2021-09-01T00:04:25.000Z",
-    ai: false,
+    ai: true,
     opacity: 1,
     message:
-      "I'm building a web app using React for the front-end and Node.js with Express for the back-end. The issue is that I'm getting a CORS error when trying to fetch data from the server.",
+      "Phrasal verbs can be tricky! How about we start with common ones like 'give up,' 'look forward to,' and 'get along'? Would you like examples?",
   },
   {
     id: "6",
     createdAt: "2021-09-01T00:05:10.000Z",
-    ai: true,
+    ai: false,
     opacity: 1,
-
-    message:
-      "CORS errors can be tricky! It usually happens when the server and client are running on different domains. You might need to configure your server to allow requests from your front-end domain using the appropriate headers.",
+    message: "Yes, please. Examples would be helpful.",
   },
   {
     id: "7",
     createdAt: "2021-09-01T00:06:45.000Z",
-    ai: false,
+    ai: true,
     opacity: 1,
     message:
-      "That makes sense. I also read about using a CORS middleware, but I'm not sure how to set it up correctly in Express.",
+      "Sure! 'Give up' means to stop trying. For example: 'I won’t give up learning English.' 'Look forward to' means to be excited about something. For example: 'I look forward to our next lesson.'",
   },
   {
     id: "8",
     createdAt: "2021-09-01T00:07:30.000Z",
-    ai: true,
+    ai: false,
     opacity: 1,
     message:
-      "No problem! You can use the `cors` package in Express to handle this. Just install it via npm and use it as middleware in your app. Here’s a quick example:\n\n```javascript\nconst cors = require('cors');\napp.use(cors());\n```",
+      "Thanks! I often confuse the usage of 'get along.' Could you clarify it?",
   },
   {
     id: "9",
     createdAt: "2021-09-01T00:08:05.000Z",
-    ai: false,
+    ai: true,
     opacity: 1,
-
     message:
-      "That’s helpful! I’ll try adding it to my server setup. Also, I want to implement JWT authentication for secure login and registration. Do you have any tips for that?",
+      "'Get along' means to have a good relationship with someone. For example: 'I get along well with my colleagues.' It’s often used to talk about friendly relationships.",
   },
   {
     id: "10",
     createdAt: "2021-09-01T00:09:00.000Z",
+    ai: false,
+    opacity: 1,
+    message:
+      "Got it! Can we also practice pronunciation for some difficult words?",
+  },
+  {
+    id: "11",
+    createdAt: "2021-09-01T00:09:45.000Z",
     ai: true,
     opacity: 1,
     message:
-      "JWT authentication is a great choice for securing your application! Start by generating tokens during login or signup. You'll then validate these tokens on each request to protected routes. Make sure to keep your secret keys safe, and set reasonable expiration times for the tokens to enhance security.",
+      "Absolutely! Let’s try words like 'schedule,' 'rural,' and 'entrepreneur.' I’ll say them one by one, and you can repeat after me.",
   },
 ];
 
@@ -209,10 +213,21 @@ function App() {
   useEffect(() => {
     // initial scroll
     handleScroll();
+
+    // mock welcome message
+    if (chatHistory.length === mockData.length) {
+      let timer = setTimeout(() => {
+        pushMessage("Hi, I'm a demo chatbot! How can I help you today?", true);
+      }, 1000);
+      return () => {
+        clearTimeout(timer);
+      };
+    }
   }, []);
 
   return (
-    <div className="bg-[url('/background.svg')] bg-cover w-dvw h-dvh grid xl:gap-8 xl:grid-cols-[40%_1fr] xl:pl-10">
+    <div className="relative bg-[url('/background.svg')] bg-cover w-dvw h-dvh grid xl:gap-8 xl:grid-cols-[40%_1fr] xl:pl-10">
+      <ThemeToggleButton />
       <div className="hidden justify-end xl:flex-col xl:flex">
         <UnicornGirlAnimation playMouthAnimation={isFetchingResponse} />
       </div>

@@ -1,5 +1,4 @@
 import { RecordMode } from "../types";
-
 import { recordModeOptions } from "../constants";
 
 interface RecordModeTabsProps {
@@ -10,13 +9,14 @@ interface RecordModeTabsProps {
 const RecordModeTabs = ({ selected, onSelect }: RecordModeTabsProps) => {
   // Base classes without focus styles
   const baseClasses = "inline-block p-2 w-full";
-  const activeClasses = "bg-[#D8BB83] text-[#4A3B2E]";
+  const activeClasses =
+    "bg-[#D8BB83] text-[#4A3B2E] dark:bg-[#A07C50] dark:text-white";
   const inactiveClasses =
-    "bg-[#E2C99A] hover:bg-[#D8BB83] hover:text-[#4A3B2E]";
-  const borderColor = "border-[#C4A373]";
+    "bg-[#E2C99A] hover:bg-[#D8BB83] hover:text-[#4A3B2E] dark:bg-[#8F6C45] dark:hover:bg-[#A07C50] dark:text-gray-200";
+  const borderColor = "border-[#C4A373] dark:border-[#7E5C3A]";
 
   return (
-    <ul className="text-xs w-full font-medium text-center text-[#4A3B2E] rounded-full overflow-hidden shadow flex">
+    <ul className="text-xs w-full font-medium text-center text-[#4A3B2E] dark:text-gray-200 rounded-full overflow-hidden shadow flex">
       {recordModeOptions.map((option, index) => {
         const isFirst = index === 0;
         const isLast = index === recordModeOptions.length - 1;
@@ -32,7 +32,8 @@ const RecordModeTabs = ({ selected, onSelect }: RecordModeTabsProps) => {
               className={`${baseClasses} ${
                 isSelected ? activeClasses : inactiveClasses
               } ${borderClasses} ${borderColor} ${
-                isFirst ? "rounded-s-lg" : ""}`}
+                isFirst ? "rounded-s-lg" : ""
+              }`}
               aria-current={isSelected ? "page" : undefined}
             >
               {option.label}

@@ -6,5 +6,7 @@
   .action-button {
     @apply flex items-center justify-center w-12 h-12 aspect-square bg-[#D8BB83] rounded-full p-3 text-center text-gray-900
              hover:bg-[#E2C99A] focus:ring-4 focus:ring-[#C4A373] focus:outline-none transition duration-300;
+
+    @apply dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-600;
   }
 }

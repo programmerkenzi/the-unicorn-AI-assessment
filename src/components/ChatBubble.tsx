@@ -13,12 +13,13 @@ const ChatBubble = ({
   isLoading = false,
   opacity = 1,
 }: ChatBubbleProps) => {
+  // Define compatible styles for AI and user chat bubbles
   const bubbleStyles = ai
-    ? "bg-[#D8BB83] text-[#333333] z-10"
-    : "bg-white self-end z-10";
+    ? "bg-[#D8BB83] text-[#333333] z-10 dark:bg-[#A07C50] dark:text-white"
+    : "bg-white self-end z-10 dark:bg-gray-900 dark:text-white";
   const tailStyles = ai
-    ? "bg-[#D8BB83] -rotate-45 -left-[5px] z-[-1]"
-    : "bg-white rotate-45 -right-[5px] z-[-1]";
+    ? "bg-[#D8BB83] -rotate-45 -left-[5px] z-[-1] dark:bg-[#A07C50]"
+    : "bg-white rotate-45 -right-[5px] z-[-1] dark:bg-gray-900";
 
   return (
     <div
