@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import MicrophoneIcon from "./icons/microphone";
+import MicrophoneIcon from "./icons/Microphone";
 
 export type RecordMode = "text-preview" | "on-click" | "auto";
 
