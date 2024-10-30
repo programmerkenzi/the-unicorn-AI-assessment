@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PauseIcon from "./icons/PauseIcon";
 import PlayIcon from "./icons/PlayIcon";
 
@@ -27,6 +27,12 @@ const AudioPlayer = ({ audioURL }: AudioPlayerProps) => {
       setIsPlaying(false); // Set play state to false
     }
   };
+
+  useEffect(() => {
+    if (audioURL) {
+      togglePlay(); // auto play audio when audioURL is set
+    }
+  }, [audioURL]);
 
   return (
     <div>
