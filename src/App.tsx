@@ -11,6 +11,7 @@ import { RecordMode } from "./types";
 import RecordModeTabs from "./components/RecordModeTabs";
 import RecordModeDrawdown from "./components/RecordModeDrawdown";
 import UnicornGirlAnimation from "./components/UnicornGirlAnimation";
+import { motion } from "framer-motion";
 
 const mockData = [
   {
@@ -175,8 +176,10 @@ function App() {
 
   useEffect(() => {
     if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop =
-        chatContainerRef.current.scrollHeight;
+      chatContainerRef.current.scrollTo({
+        top: chatContainerRef.current.scrollHeight,
+        behavior: "smooth",
+      });
     }
   }, [chatHistory.length, isFetchingResponse]);
 
@@ -222,8 +225,8 @@ function App() {
           />
         </div>
       </div>
-      <div className="relative overflow-hidden h-full pb-[80px] xl:pb-[155px]">
-        <div
+      <div className="relative overflow-hidden h-full px-2 pb-[80px] xl:pb-[155px]">
+        <motion.div
           className="flex overflow-y-scroll flex-col gap-5 h-full xl:gap-8 xl:pr-10"
           ref={chatContainerRef}
           onScroll={handleScroll}
@@ -239,7 +242,7 @@ function App() {
           {isFetchingResponse && (
             <ChatBubble message="" ai={true} isLoading={true} />
           )}
-        </div>
+        </motion.div>
         {/* actions */}
         <div className="flex absolute bottom-0 left-0 flex-col gap-6 p-4 w-full xl:pr-10">
           <div className="flex flex-row gap-2 justify-between items-center xl:gap-4">
