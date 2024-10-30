@@ -124,13 +124,8 @@ function App() {
     ]);
   };
 
-  const handleOnSend = () => {
-    pushMessage(message, false);
-
-    setMessage("");
-
-    // Simulate AI response
-
+  // Simulate AI response
+  const simulateFetching = () => {
     setTimeout(() => {
       setIsFetchingResponse(true);
     }, 1000);
@@ -144,21 +139,18 @@ function App() {
     }, 5000);
   };
 
+  const handleOnSend = () => {
+    pushMessage(message, false);
+
+    setMessage("");
+
+    simulateFetching();
+  };
+
   const handleOnAutoSend = (message: string) => {
     pushMessage(message, false);
 
-    // Simulate AI response
-    setTimeout(() => {
-      setIsFetchingResponse(true);
-    }, 1000);
-
-    setTimeout(() => {
-      setIsFetchingResponse(false);
-      pushMessage(
-        "I'm sorry, I'm just a demo chatbot. I don't have real-time capabilities.",
-        true
-      );
-    }, 5000);
+    simulateFetching();
   };
 
   const handleOnResult = (text: string) => {

@@ -6,7 +6,7 @@ import MouthClosed from "/mouth_closed.svg";
 interface UnicornGirlMouthAnimationProps {
   containerHeight: number;
   containerWidth: number;
-  playAnimation: boolean; // Prop to trigger animation
+  playAnimation: boolean;
 }
 
 function UnicornGirlMouthAnimation({
@@ -14,7 +14,8 @@ function UnicornGirlMouthAnimation({
   containerHeight,
   containerWidth,
 }: UnicornGirlMouthAnimationProps) {
-  const [isMouthOpen, setIsMouthOpen] = useState(true); // Default state is open
+  const [isMouthOpen, setIsMouthOpen] = useState(true);
+
   useEffect(() => {
     if (playAnimation) {
       // Start toggling between open and closed mouth
