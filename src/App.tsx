@@ -204,7 +204,7 @@ function App() {
   };
 
   return (
-    <div className="bg-[url('/background.svg')] bg-cover w-screen h-screen grid xl:gap-8 xl:grid-cols-[40%_1fr] xl:pl-10">
+    <div className="bg-[url('/background.svg')] bg-cover w-dvw h-dvh grid xl:gap-8 xl:grid-cols-[40%_1fr] xl:pl-10">
       <div className="hidden justify-end xl:flex-col xl:flex">
         <UnicornGirlAnimation playMouthAnimation={isFetchingResponse} />
       </div>
@@ -217,7 +217,7 @@ function App() {
           />
         </div>
       </div>
-      <div className="relative overflow-hidden h-full pb-[70px] xl:pb-[155px]">
+      <div className="relative overflow-hidden h-full pb-[80px] xl:pb-[155px]">
         <div
           className="flex overflow-y-scroll flex-col gap-5 h-full xl:gap-8 xl:pr-10"
           ref={chatContainerRef}
