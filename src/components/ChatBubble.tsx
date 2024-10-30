@@ -1,4 +1,4 @@
-import Spinner from "./Spinner";
+import { FetchingAnimation } from "./FetchingAnimation";
 
 interface ChatBubbleProps {
   message: string;
@@ -27,7 +27,7 @@ const ChatBubble = ({
     >
       {isLoading ? (
         <div className="flex flex-row justify-center items-center w-full h-12">
-          <Spinner />
+          <FetchingAnimation />
         </div>
       ) : (
         <p className="overflow-hidden break-words">{message}</p>

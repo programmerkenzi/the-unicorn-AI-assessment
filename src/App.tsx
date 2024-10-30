@@ -10,6 +10,7 @@ import RemoveButton from "./components/RemoveButton";
 import { RecordMode } from "./types";
 import RecordModeTabs from "./components/RecordModeTabs";
 import RecordModeDrawdown from "./components/RecordModeDrawdown";
+import UnicornGirlAnimation from "./components/UnicornGirlAnimation";
 
 const mockData = [
   {
@@ -135,7 +136,7 @@ function App() {
         "I'm sorry, I'm just a demo chatbot. I don't have real-time capabilities.",
         true
       );
-    }, 3000);
+    }, 5000);
   };
 
   const handleOnAutoSend = (message: string) => {
@@ -152,7 +153,7 @@ function App() {
         "I'm sorry, I'm just a demo chatbot. I don't have real-time capabilities.",
         true
       );
-    }, 3000);
+    }, 5000);
   };
 
   const handleOnResult = (text: string) => {
@@ -205,7 +206,7 @@ function App() {
   return (
     <div className="bg-[url('src/assets/background.svg')] bg-cover w-screen h-screen grid xl:gap-8 xl:grid-cols-[40%_1fr] xl:pl-10">
       <div className="hidden flex-col justify-end xl:flex">
-        <img src={UnicornGirl} />
+        <UnicornGirlAnimation playMouthAnimation={isFetchingResponse} />
       </div>
       <div className="flex flex-row justify-between w-full items-start h-16 xl:hidden bg-[rgba(0,0,0,0.20)]  px-1 pt-2">
         <img src={UnicornGirl} className="h-full" />
