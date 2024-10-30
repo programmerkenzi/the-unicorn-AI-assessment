@@ -124,28 +124,35 @@ function App() {
     setMessage("");
 
     // Simulate AI response
-    setIsFetchingResponse(true);
+
+    setTimeout(() => {
+      setIsFetchingResponse(true);
+    }, 1000);
+
     setTimeout(() => {
       setIsFetchingResponse(false);
       pushMessage(
         "I'm sorry, I'm just a demo chatbot. I don't have real-time capabilities.",
         true
       );
-    }, 1000);
+    }, 3000);
   };
 
   const handleOnAutoSend = (message: string) => {
     pushMessage(message, false);
 
     // Simulate AI response
-    setIsFetchingResponse(true);
+    setTimeout(() => {
+      setIsFetchingResponse(true);
+    }, 1000);
+
     setTimeout(() => {
       setIsFetchingResponse(false);
       pushMessage(
         "I'm sorry, I'm just a demo chatbot. I don't have real-time capabilities.",
         true
       );
-    }, 1000);
+    }, 3000);
   };
 
   const handleOnResult = (text: string) => {
@@ -211,7 +218,7 @@ function App() {
       </div>
       <div className="relative overflow-hidden h-full pb-[70px] xl:pb-[155px]">
         <div
-          className="flex overflow-y-scroll flex-col gap-5 p-4 h-full xl:gap-8 xl:pr-10"
+          className="flex overflow-y-scroll flex-col gap-5 h-full xl:gap-8 xl:pr-10"
           ref={chatContainerRef}
           onScroll={handleScroll}
         >

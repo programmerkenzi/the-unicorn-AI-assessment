@@ -26,7 +26,7 @@ const ChatBubble = ({
       style={{ opacity }}
     >
       {isLoading ? (
-        <div className="flex flex-row justify-center items-center w-full h-20">
+        <div className="flex flex-row justify-center items-center w-full h-12">
           <Spinner />
         </div>
       ) : (
