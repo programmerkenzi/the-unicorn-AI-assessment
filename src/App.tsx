@@ -204,7 +204,7 @@ function App() {
   };
 
   return (
-    <div className="bg-[url('./background.svg')] bg-cover w-screen h-screen grid xl:gap-8 xl:grid-cols-[40%_1fr] xl:pl-10">
+    <div className="bg-[url('/background.svg')] bg-cover w-screen h-screen grid xl:gap-8 xl:grid-cols-[40%_1fr] xl:pl-10">
       <div className="hidden justify-end xl:flex-col xl:flex">
         <UnicornGirlAnimation playMouthAnimation={isFetchingResponse} />
       </div>
