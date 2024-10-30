@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import UnicornGirl from "./assets/unicorn_girl.svg";
+import UnicornGirl from "/unicorn_girl.svg";
 
 import "./App.css";
 import ChatBubble from "./components/ChatBubble";
@@ -204,8 +204,8 @@ function App() {
   };
 
   return (
-    <div className="bg-[url('src/assets/background.svg')] bg-cover w-screen h-screen grid xl:gap-8 xl:grid-cols-[40%_1fr] xl:pl-10">
-      <div className="hidden flex-col justify-end xl:flex">
+    <div className="bg-[url('./background.svg')] bg-cover w-screen h-screen grid xl:gap-8 xl:grid-cols-[40%_1fr] xl:pl-10">
+      <div className="hidden justify-end xl:flex-col xl:flex">
         <UnicornGirlAnimation playMouthAnimation={isFetchingResponse} />
       </div>
       <div className="flex flex-row justify-between w-full items-start h-16 xl:hidden bg-[rgba(0,0,0,0.20)]  px-1 pt-2">

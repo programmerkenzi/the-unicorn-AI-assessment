@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import MouthOpen from "../assets/mouth_open.svg";
-import MouthClosed from "../assets/mouth_closed.svg";
+import MouthOpen from "/mouth_open.svg";
+import MouthClosed from "/mouth_closed.svg";
 
 interface UnicornGirlMouthAnimationProps {
   mouthPosition: {

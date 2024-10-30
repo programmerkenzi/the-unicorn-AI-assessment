@@ -1,4 +1,4 @@
-import AaIcon from "../assets/icon/aa.svg";
+import AaIcon from "/icon/aa.svg";
 
 interface SendBoxProps {
   message: string;

@@ -1,5 +1,5 @@
-import UnicornGirlFace from "../assets/unicorn_girl_face.svg";
-import Horn from "../assets/horn.svg";
+import UnicornGirlFace from "/unicorn_girl_face.svg";
+import Horn from "/horn.svg";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import UnicornGirlMouthAnimation from "./UnicornGirlMouthAnimation";
@@ -28,15 +28,16 @@ function UnicornGirlAnimation({
     if (unicornGirlContainer.current) {
       const containerHeight = unicornGirlContainer.current.offsetHeight;
       const containerWidth = unicornGirlContainer.current.offsetWidth;
+      console.log(containerHeight, containerWidth);
       setHornPosition({
         bottom: containerHeight * 0.8,
-        left: containerWidth * 0.43,
+        left: containerHeight / 2,
         width: containerWidth * 0.15,
       });
 
       setMouthPosition({
         bottom: containerHeight * 0.415,
-        left: containerWidth * 0.468,
+        left: containerHeight / 2 + containerWidth * 0.04,
         width: containerWidth * 0.1,
       });
     }
@@ -53,10 +54,10 @@ function UnicornGirlAnimation({
     return () => {
       window.removeEventListener("resize", updateHornPosition);
     };
-  }, []);
+  }, [unicornGirlContainer.current]);
 
   return (
-    <div className="relative" ref={unicornGirlContainer}>
+    <div className="flex relative" ref={unicornGirlContainer}>
       <img src={UnicornGirlFace} alt="Unicorn Girl Face" />
 
       <motion.div
