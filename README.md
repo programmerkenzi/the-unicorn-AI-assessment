@@ -1,50 +1,34 @@
-# React + TypeScript + Vite
+# Uniron AI Assessment Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+This is the **Uniron AI Assessment Project**, a **responsive web application** developed using **React** and **TailwindCSS**. The project showcases front-end capabilities, including recording features, theme toggling, responsive design, and fun animations.
 
-Currently, two official plugins are available:
+## Demo
+Check out the live demo here: [Demo URL](https://the-unicorn-ai-assessment.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![uncorn-demo](https://github.com/user-attachments/assets/0bdb0dc5-69a6-40a4-99a4-583d73aeec80)
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Features
+1. **Recording (Preview Text Mode)**: 
+   - Allows users to record audio and preview the transcribed text.
+   - Once the recording is finished, the transcript will be inserted into the send box.
+   
+2. **Recording (On Click Mode)**:
+   - Users can start recording with a single click.
+   - Upon finishing the recording, the transcript will be sent automatically.
 
-- Configure the top-level `parserOptions` property like this:
+3. **Replay Recording**:
+   - After finishing a recording, users can replay the recorded audio to review it.
+   - Users can also press "Remove" to delete the recording and reset the recording process.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+4. **Toggle Theme**: 
+   - Users can switch between dark and light modes by toggling a button.
+   - The default theme is set to light mode.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+5. **Responsive Design**:
+   - The application is fully responsive, ensuring a seamless experience on desktops, tablets, and mobile devices.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+6. **Animation (Just for Fun)**:
+   - **Unicorn Girl's Horn**: The unicorn girl's horn resizes dynamically when the screen size changes.
+   - **Unicorn Girl's Mouth**: The unicorn girl’s mouth opens and closes to simulate fetching responses, adding a playful touch to the user interface.
