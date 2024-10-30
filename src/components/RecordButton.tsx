@@ -115,6 +115,8 @@ const RecordButton = ({
         <span className="absolute inline-flex h-full w-full rounded-full bg-[#C4A373] opacity-75 animate-ping" />
       )}
       <svg
+        width="24"
+        height="24"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

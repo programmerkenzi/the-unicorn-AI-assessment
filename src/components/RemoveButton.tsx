@@ -7,6 +7,8 @@ const RemoveButton = ({ onClick }: RemoveButtonProps) => {
     <button onClick={onClick} className="text-red-500 action-button">
       <svg
         xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
         fill="none"
         viewBox="0 0 24 24"
         strokeWidth="2"
