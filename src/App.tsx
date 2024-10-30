@@ -203,6 +203,11 @@ function App() {
     setChatHistory(data);
   };
 
+  useEffect(() => {
+    // initial scroll
+    handleScroll();
+  }, []);
+
   return (
     <div className="bg-[url('/background.svg')] bg-cover w-dvw h-dvh grid xl:gap-8 xl:grid-cols-[40%_1fr] xl:pl-10">
       <div className="hidden justify-end xl:flex-col xl:flex">
