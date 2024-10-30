@@ -38,9 +38,9 @@ const RecordModeDrawdown = ({
         >
           <path
             stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
             d="M6 6h8m-8 4h12M6 14h8m-8 4h12"
           />
         </svg>

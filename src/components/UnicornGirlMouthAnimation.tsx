@@ -4,20 +4,17 @@ import MouthOpen from "/mouth_open.svg";
 import MouthClosed from "/mouth_closed.svg";
 
 interface UnicornGirlMouthAnimationProps {
-  mouthPosition: {
-    bottom: number;
-    left: number;
-    width: number;
-  };
+  containerHeight: number;
+  containerWidth: number;
   playAnimation: boolean; // Prop to trigger animation
 }
 
 function UnicornGirlMouthAnimation({
-  mouthPosition,
   playAnimation,
+  containerHeight,
+  containerWidth,
 }: UnicornGirlMouthAnimationProps) {
   const [isMouthOpen, setIsMouthOpen] = useState(true); // Default state is open
-
   useEffect(() => {
     if (playAnimation) {
       // Start toggling between open and closed mouth
@@ -37,9 +34,9 @@ function UnicornGirlMouthAnimation({
     <motion.div
       className="absolute"
       style={{
-        width: `${mouthPosition.width}px`,
-        left: `${mouthPosition.left}px`,
-        bottom: `${mouthPosition.bottom}px`,
+        width: `${containerWidth * 0.1}px`,
+        left: `${containerHeight / 2 + containerWidth * 0.04}px`,
+        bottom: `${containerHeight * 0.415}px`,
       }}
     >
       {isMouthOpen ? (
