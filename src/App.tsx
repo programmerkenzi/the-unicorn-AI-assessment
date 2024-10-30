@@ -8,6 +8,8 @@ import RecordButton from "./components/RecordButton";
 import AudioPlayer from "./components/AudioPlayer";
 import RemoveButton from "./components/RemoveButton";
 import { RecordMode } from "./types";
+import RecordModeTabs from "./components/RecordModeTabs";
+import RecordModeDrawdown from "./components/RecordModeDrawdown";
 
 const mockData = [
   {
@@ -194,14 +196,20 @@ function App() {
   };
 
   return (
-    <div className="bg-[url('src/assets/background.svg')] w-screen h-screen grid xl:gap-8 xl:grid-cols-[40%_1fr] xl:pl-10">
+    <div className="bg-[url('src/assets/background.svg')] bg-cover w-screen h-screen grid xl:gap-8 xl:grid-cols-[40%_1fr] xl:pl-10">
       <div className="hidden flex-col justify-end xl:flex">
         <img src={UnicornGirl} />
       </div>
-      <div className="flex flex-col w-full items-start h-16 xl:hidden bg-[rgba(0,0,0,0.20)]  px-1 pt-2">
+      <div className="flex flex-row justify-between w-full items-start h-16 xl:hidden bg-[rgba(0,0,0,0.20)]  px-1 pt-2">
         <img src={UnicornGirl} className="h-full" />
+        <div className="">
+          <RecordModeDrawdown
+            onSelect={(mode) => setRecordMode(mode)}
+            selected={recordMode}
+          />
+        </div>
       </div>
-      <div className="relative overflow-hidden h-full pb-[70px]">
+      <div className="relative overflow-hidden h-full pb-[70px] xl:pb-[108px]">
         <div
           className="flex overflow-y-scroll flex-col gap-5 p-4 h-full xl:gap-8 xl:pr-10"
           ref={chatContainerRef}
@@ -220,29 +228,34 @@ function App() {
           )}
         </div>
         {/* actions */}
-        <div className="flex absolute bottom-0 left-0 flex-row gap-2 justify-between items-center px-4 py-2 w-full xl:pr-10">
-          <SendBox
-            message={message}
-            setMessage={(message) => setMessage(message)}
-            onSend={handleOnSend}
-          />
+        <div className="flex absolute bottom-0 left-0 flex-col gap-4 px-4 py-2 w-full xl:pr-10">
+          <div className="flex flex-row gap-2 justify-between items-center">
+            <SendBox
+              message={message}
+              setMessage={(message) => setMessage(message)}
+              onSend={handleOnSend}
+            />
 
-          {audioURL ? (
-            <>
-              <AudioPlayer audioURL={audioURL} />
-              <RemoveButton onClick={() => setAudioURL("")} />
-            </>
-          ) : (
-            <>
-              <RecordButton
-                onResult={handleOnResult}
-                onRecordEnd={handleOnRecordEnd}
-                recordMode={recordMode}
-                onRecordStart={handleOnRecordStart}
-                onSaveAudio={(audioURL) => setAudioURL(audioURL)}
-              />
-            </>
-          )}
+            {audioURL ? (
+              <>
+                <AudioPlayer audioURL={audioURL} />
+                <RemoveButton onClick={() => setAudioURL("")} />
+              </>
+            ) : (
+              <>
+                <RecordButton
+                  onResult={handleOnResult}
+                  onRecordEnd={handleOnRecordEnd}
+                  recordMode={recordMode}
+                  onRecordStart={handleOnRecordStart}
+                  onSaveAudio={(audioURL) => setAudioURL(audioURL)}
+                />
+              </>
+            )}
+          </div>
+          <div className="hidden self-end w-1/2 max-w-96 xl:flex">
+            <RecordModeTabs selected={recordMode} onSelect={setRecordMode} />
+          </div>
         </div>
       </div>
     </div>
