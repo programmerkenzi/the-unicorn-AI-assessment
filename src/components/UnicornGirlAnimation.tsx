@@ -44,9 +44,7 @@ function UnicornGirlAnimation({
   };
 
   useEffect(() => {
-    // Set initial position
     updateHornPosition();
-
     // Add resize event listener
     window.addEventListener("resize", updateHornPosition);
 
@@ -54,7 +52,7 @@ function UnicornGirlAnimation({
     return () => {
       window.removeEventListener("resize", updateHornPosition);
     };
-  }, [unicornGirlContainer.current]);
+  }, []);
 
   return (
     <div className="flex relative" ref={unicornGirlContainer}>
