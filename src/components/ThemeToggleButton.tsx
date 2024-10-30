@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
+import SunIcon from "./icons/SunIcon";
+import MoonIcon from "./icons/MoonIcon";
 
 const ThemeToggleButton = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  // Load the initial theme from localStorage or set default to light
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme");
 
@@ -13,11 +14,10 @@ const ThemeToggleButton = () => {
     } else {
       document.documentElement.classList.remove("dark");
       setIsDarkMode(false);
-      localStorage.setItem("theme", "light"); // Set default to light
+      localStorage.setItem("theme", "light");
     }
   }, []);
 
-  // Toggle theme function
   const toggleTheme = () => {
     if (isDarkMode) {
       document.documentElement.classList.remove("dark");
@@ -47,37 +47,16 @@ const ThemeToggleButton = () => {
                 : "bg-gray-700 peer-focus:ring-4 peer-focus:ring-gray-500"
             }`}
           >
-            {/* Sun Icon (Visible in Light Mode) */}
-
-            <svg
+            <SunIcon
               className={`absolute right-1 top-[calc(50%-8px)] w-4 h-4 text-white transition-opacity ${
                 isDarkMode ? "opacity-0" : "opacity-100"
               }`}
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M13 3a1 1 0 1 0-2 0v2a1 1 0 1 0 2 0V3ZM6.343 4.929A1 1 0 0 0 4.93 6.343l1.414 1.414a1 1 0 0 0 1.414-1.414L6.343 4.929Zm12.728 1.414a1 1 0 0 0-1.414-1.414l-1.414 1.414a1 1 0 0 0 1.414 1.414l1.414-1.414ZM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm-9 4a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2H3Zm16 0a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2h-2ZM7.757 17.657a1 1 0 1 0-1.414-1.414l-1.414 1.414a1 1 0 1 0 1.414 1.414l1.414-1.414Zm9.9-1.414a1 1 0 0 0-1.414 1.414l1.414 1.414a1 1 0 0 0 1.414-1.414l-1.414-1.414ZM13 19a1 1 0 1 0-2 0v2a1 1 0 1 0 2 0v-2Z"
-                clip-rule="evenodd"
-              />
-            </svg>
-
-            {/* Moon Icon (Visible in Dark Mode) */}
-            <svg
-              className={`absolute left-1 top-[calc(50%-8px)]  w-4 h-4 text-white transition-opacity ${
+            />
+            <MoonIcon
+              className={`absolute left-1 top-[calc(50%-8px)] w-4 h-4 text-white transition-opacity ${
                 isDarkMode ? "opacity-100" : "opacity-0"
               }`}
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-            </svg>
+            />
           </div>
           <div
             className={`absolute w-5 h-5 bg-white border rounded-full transition-all ${
@@ -97,31 +76,11 @@ const ThemeToggleButton = () => {
         }`}
         aria-label="Toggle Theme"
       >
-        <svg
-          className={`w-5 h-5 ${!isDarkMode ? "block" : "hidden"}`}
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          fill="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M13 3a1 1 0 1 0-2 0v2a1 1 0 1 0 2 0V3ZM6.343 4.929A1 1 0 0 0 4.93 6.343l1.414 1.414a1 1 0 0 0 1.414-1.414L6.343 4.929Zm12.728 1.414a1 1 0 0 0-1.414-1.414l-1.414 1.414a1 1 0 0 0 1.414 1.414l1.414-1.414ZM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm-9 4a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2H3Zm16 0a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2h-2ZM7.757 17.657a1 1 0 1 0-1.414-1.414l-1.414 1.414a1 1 0 1 0 1.414 1.414l1.414-1.414Zm9.9-1.414a1 1 0 0 0-1.414 1.414l1.414 1.414a1 1 0 0 0 1.414-1.414l-1.414-1.414ZM13 19a1 1 0 1 0-2 0v2a1 1 0 1 0 2 0v-2Z"
-            clip-rule="evenodd"
-          />
-        </svg>
-
-        {/* Show light icon when dark mode is active */}
-        <svg
-          className={`w-5 h-5 ${isDarkMode ? "block" : "hidden"}`}
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-        </svg>
+        {!isDarkMode ? (
+          <SunIcon className="w-5 h-5" />
+        ) : (
+          <MoonIcon className="w-5 h-5" />
+        )}
       </button>
     </div>
   );

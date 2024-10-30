@@ -1,4 +1,6 @@
 import { useRef, useState } from "react";
+import PauseIcon from "./icons/PauseIcon";
+import PlayIcon from "./icons/PlayIcon";
 
 interface AudioPlayerProps {
   audioURL: string;
@@ -27,8 +29,7 @@ const AudioPlayer = ({ audioURL }: AudioPlayerProps) => {
   };
 
   return (
-    <div className="">
-      {/* Audio Element */}
+    <div>
       <audio
         ref={audioRef}
         src={audioURL}
@@ -36,41 +37,8 @@ const AudioPlayer = ({ audioURL }: AudioPlayerProps) => {
         className="hidden"
       />
 
-      {/* Play Button */}
       <button onClick={togglePlay} className={`action-button`}>
-        {isPlaying ? (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            strokeWidth="2"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M10 9v6m4-6v6"
-            />
-          </svg>
-        ) : (
-          <svg
-            width="24"
-            height="24"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="2"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M5.5 4.5l13 7-13 7V4.5z"
-            />
-          </svg>
-        )}
+        {isPlaying ? <PauseIcon /> : <PlayIcon />}
       </button>
     </div>
   );

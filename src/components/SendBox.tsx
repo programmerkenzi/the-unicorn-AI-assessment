@@ -1,3 +1,4 @@
+import SendIcon from "./icons/SendIcon";
 import AaIcon from "/icon/aa.svg";
 
 interface SendBoxProps {
@@ -34,22 +35,7 @@ const SendBox = ({ message, setMessage, onSend }: SendBoxProps) => {
           className="flex absolute inset-y-0 items-center pr-2 cursor-pointer hover:opacity-75 end-4 focus:outline-none"
           onClick={onSend}
         >
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 42 43"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M41 1.5L19 23.5M41 1.5L27 41.5L19 23.5M41 1.5L1 15.5L19 23.5"
-              stroke="currentColor"
-              className="text-[#1E1E1E] dark:text-gray-200"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          <SendIcon />
         </button>
       </div>
     </div>

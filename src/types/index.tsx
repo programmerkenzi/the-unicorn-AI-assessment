@@ -4,3 +4,5 @@ export interface Option<T> {
   label: string;
   value: T;
 }
+
+export interface SVGIconProps extends React.SVGProps<SVGSVGElement> {}
